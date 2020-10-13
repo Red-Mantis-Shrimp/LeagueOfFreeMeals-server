@@ -52,6 +52,7 @@ const fillGamesMap = (matches: any, gamesMap: any) => {
     return gamesMap;
 };
 
+<<<<<<< HEAD
 app.get('/api/matches', (req, res) => {
     let matches = {};
     const requestsArray = [
@@ -82,9 +83,14 @@ app.get('/api/matches', (req, res) => {
         })
         .catch(() => res.status(400).json({ msg: 'error' }));
 });
-
+=======
 // start the Express server
-app.listen(port, () => {
-    // tslint:disable-next-line:no-console
-    console.log(`server started at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//     // tslint:disable-next-line:no-console
+//     console.log(`server started at http://localhost:${port}`);
+// });
+
+app.listen(port);
+>>>>>>> dev
+
+export default app;
