@@ -21,7 +21,7 @@ describe('Parent', () => {
 
     describe('PASS', () => {
         it('should always pass', (done) => {
-            expect(true).to.equal(true);
+            expect(true).to.equal(false);
             done();
         });
     });
