@@ -52,49 +52,12 @@ const fillGamesMap = (matches: any, gamesMap: any) => {
     return gamesMap;
 };
 
-app.get('/api/matches', (req, res) => {
-    let matches = {};
-    const requestsArray = [
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Asmir9990}?queue=400&api_key=${apiKey}`,
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.KnightHulk}?queue=400&api_key=${apiKey}`,
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Sec}?queue=400&api_key=${apiKey}`,
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Crendez}?queue=400&api_key=${apiKey}`,
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Bluegoldfish}?queue=400&api_key=${apiKey}`,
-        `https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.JRal}?queue=400&api_key=${apiKey}`,
-    ];
-    Promise.all(
-        requestsArray.map((quest) => {
-            return axios
-                .get(quest)
-                .then((response) => {
-                    return response.data;
-                })
-                .then((data) => {
-                    return data;
-                });
-        }),
-    )
-        .then((data) => {
-            data.map((adata) => {
-                matches = fillGamesMap(adata.matches, matches);
-            });
-            res.send({ data: Object.keys(matches).filter((key) => (matches as any)[key] >= 5) });
-        })
-        .catch(() => res.status(400).json({ msg: 'error' }));
-
-    // request(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Asmir9990}?queue=450&api_key=${apiKey}`,
-    //         (error, response, body) => {
-    //         if (!error && response.statusCode === 200) {
-    //             return fillGamesMap(JSON.parse(body).matches,matches);
-
-    //         } else {
-    //             res.status(400).json({msg:error})
-    //         }
-    //     });
-});
-
 // start the Express server
-app.listen(port, () => {
-    // tslint:disable-next-line:no-console
-    console.log(`server started at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//     // tslint:disable-next-line:no-console
+//     console.log(`server started at http://localhost:${port}`);
+// });
+
+app.listen(port);
+
+export default app;
