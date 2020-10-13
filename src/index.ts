@@ -6,7 +6,7 @@ import request from 'request';
 import { Accounts } from './enum/accounts';
 
 const baseURL = 'https://na1.api.riotgames.com/';
-const apiKey = 'RGAPI-71775a09-8b6e-4b31-ac79-e6979f802ecf';
+const apiKey = process.env.API;
 
 app.get('/', (req, res) => {
     res.send('Hello I got the home for you');
@@ -81,16 +81,6 @@ app.get('/api/matches', (req, res) => {
             res.send({ data: Object.keys(matches).filter((key) => (matches as any)[key] >= 5) });
         })
         .catch(() => res.status(400).json({ msg: 'error' }));
-
-    // request(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${Accounts.Asmir9990}?queue=450&api_key=${apiKey}`,
-    //         (error, response, body) => {
-    //         if (!error && response.statusCode === 200) {
-    //             return fillGamesMap(JSON.parse(body).matches,matches);
-
-    //         } else {
-    //             res.status(400).json({msg:error})
-    //         }
-    //     });
 });
 
 // start the Express server
