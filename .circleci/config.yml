@@ -3,12 +3,42 @@ orbs: # declare what orbs we are going to use
 
 version: 2.1 # using 2.1 provides access to orbs and other features
 
+defaults: &defaults
+  working_directory: ~/repo
+
+jobs:
+    core:
+        <<: *defaults
+        working_directory: ~/repo
+
+      steps:
+          - checkout
+
+        -restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+
+        - run: npm ci
+
+        - run: npm run test:ci
+
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
+        - persist_to_workspace:
+            root: ~/repo
+            paths: .
+      
 workflows:
-    matrix-tests:
-        jobs:
-            - node/test:
-                  version: 13.11.0
-            - node/test:
-                  version: 12.16.0
-            - node/test:
-                  version: 10.19.0
+    version: 2
+    core:
+      jobs:
+        - core:
+            filters:
+              branches:
+                only:
+                  - master
+                  - dev

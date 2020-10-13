@@ -12,7 +12,8 @@
         "dev:start": "npm-run-all build start",
         "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
         "start": "node .",
-        "test": "mocha -r ts-node/register test/*.test.ts"
+        "test": "mocha --watch -r ts-node/register test/*.test.ts",
+        "test:ci": "NODE_ENV=test mocha -r ts-node/register test/*.test.ts"
     },
     "keywords": [],
     "author": "",
