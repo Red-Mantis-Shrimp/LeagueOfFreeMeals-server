@@ -5,32 +5,34 @@ version: 2.1 # using 2.1 provides access to orbs and other features
 
 defaults: &defaults
   working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.14.2
 
 jobs:
     core:
         <<: *defaults
         working_directory: ~/repo
 
-      steps:
+        steps:
           - checkout
 
-        -restore_cache:
-            keys:
-              - v1-dependencies-{{ checksum "package.json" }}
-              - v1-dependencies-
+          - restore_cache:
+              keys:
+                - v1-dependencies-{{ checksum "package.json" }}
+                - v1-dependencies-
 
-        - run: npm ci
+          - run: npm ci
 
-        - run: npm run test:ci
+          - run: npm run test:ci
 
-        - save_cache:
-            paths:
-              - node_modules
-            key: v1-dependencies-{{ checksum "package.json" }}
+          - save_cache:
+              paths:
+                - node_modules
+              key: v1-dependencies-{{ checksum "package.json" }}
 
-        - persist_to_workspace:
-            root: ~/repo
-            paths: .
+          - persist_to_workspace:
+              root: ~/repo
+              paths: .
       
 workflows:
     version: 2
