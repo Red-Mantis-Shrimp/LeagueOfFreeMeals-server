@@ -1,3 +1,4 @@
+import { doesNotMatch } from 'assert';
 import chai from 'chai';
 import { agent as request } from 'supertest';
 import app from '../src/index';
@@ -19,8 +20,9 @@ describe('Parent', () => {
     });
 
     describe('PASS', () => {
-        it('should always pass', () => {
+        it('should always pass', (done) => {
             expect(true).to.equal(true);
+            done();
         });
     });
 });
