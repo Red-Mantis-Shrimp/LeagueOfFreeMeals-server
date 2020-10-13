@@ -40,9 +40,4 @@ workflows:
     version: 2
     core:
         jobs:
-            - core:
-                  filters:
-                      branches:
-                          only:
-                              - master
-                              - dev
+            - core
